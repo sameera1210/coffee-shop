@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Coffee Shop</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#fff4e6;
+    color:#4b2e1e;
+}
+
+
+header{
+    background:#3b1f0e;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+
+.home{
+
+height:400px;
+background:url("https://images.unsplash.com/photo-1445116572660-236099ec97a0");
+background-size:cover;
+color:white;
+text-align:center;
+padding-top:100px;
+
+}
+
+
+button{
+
+background:#c87941;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:25px;
+cursor:pointer;
+
+}
+
+
+
+#products{
+
+display:none;
+text-align:center;
+padding:30px;
+
+}
+
+
+
+.cards{
+
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+
+}
+
+
+
+.card{
+
+background:white;
+width:220px;
+padding:15px;
+border-radius:15px;
+box-shadow:0 5px 15px gray;
+
+}
+
+
+
+.card img{
+
+width:100%;
+height:150px;
+border-radius:10px;
+
+}
+
+
+
+#details{
+
+display:none;
+background:#efd2b3;
+margin:30px;
+padding:30px;
+text-align:center;
+border-radius:15px;
+
+}
+
+
+#details img{
+
+width:300px;
+border-radius:15px;
+
+}
+
+
+
+input{
+
+padding:10px;
+border-radius:20px;
+border:1px solid brown;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>☕ Coffee Corner</h1>
+
+</header>
+
+
+
+
+<section class="home">
+
+<h1>Welcome To Coffee Corner</h1>
+
+<p>Fresh Coffee & Delicious Taste</p>
+
+<button onclick="openMenu()">Order Now</button>
+
+</section>
+
+
+
+
+
+<section id="products">
+
+
+<h2>Available Coffees</h2>
+
+
+<input type="text" 
+placeholder="Search Coffee"
+onkeyup="searchCoffee()"
+id="search">
+
+
+<div class="cards" id="coffeeList">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section id="details">
+
+
+<img id="coffeeImg">
+
+
+<h1 id="coffeeName"></h1>
+
+<h2 id="coffeePrice"></h2>
+
+<p id="coffeeDesc"></p>
+
+
+<button onclick="back()">Back</button>
+
+
+</section>
+
+
+
+
+
+<script>
+
+
+let coffees=[
+
+{
+name:"Cappuccino",
+price:"₹120",
+img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+desc:"Hot coffee with milk foam and rich flavour."
+},
+
+
+{
+name:"Cold Coffee",
+price:"₹100",
+img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+desc:"Chilled coffee with creamy taste."
+},
+
+
+{
+name:"Latte",
+price:"₹150",
+img:"https://images.unsplash.com/photo-1511920170033-f8396924c348",
+desc:"Smooth coffee mixed with steamed milk."
+},
+
+
+{
+name:"Espresso",
+price:"₹90",
+img:"https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04",
+desc:"Strong and fresh coffee shot."
+}
+
+];
+
+
+
+function openMenu(){
+
+document.getElementById("products").style.display="block";
+
+displayCoffee(coffees);
+
+}
+
+
+
+function displayCoffee(data){
+
+
+let list="";
+
+
+data.forEach(c=>{
+
+
+list += `
+
+<div class="card">
+
+<img src="${c.img}">
+
+<h3>${c.name}</h3>
+
+<button onclick="showDetails('${c.name}')">
+View Details
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("coffeeList").innerHTML=list;
+
+
+}
+
+
+
+
+function showDetails(name){
+
+
+let coffee=coffees.find(c=>c.name==name);
+
+
+
+document.getElementById("products").style.display="none";
+
+document.getElementById("details").style.display="block";
+
+
+document.getElementById("coffeeImg").src=coffee.img;
+
+document.getElementById("coffeeName").innerHTML=coffee.name;
+
+document.getElementById("coffeePrice").innerHTML=
+"Price: "+coffee.price;
+
+document.getElementById("coffeeDesc").innerHTML=
+coffee.desc;
+
+
+}
+
+
+
+
+function back(){
+
+document.getElementById("details").style.display="none";
+
+document.getElementById("products").style.display="block";
+
+}
+
+
+
+function searchCoffee(){
+
+
+let value=document.getElementById("search").value.toLowerCase();
+
+
+let result=coffees.filter(c=>
+c.name.toLowerCase().includes(value)
+);
+
+
+displayCoffee(result);
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
